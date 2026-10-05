@@ -2,10 +2,12 @@ Zebra Technologies Printers Remote/Unauthenticated Reflected XSS in Web Interfac
 (See related vulnerability:https://gist.github.com/lethalcyanide/0c1044ee9261f9ffc67a02f2eb80ba4c + https://www.cve.org/CVERecord?id=CVE-2024-55094 as I believe there is likely complete overlap between printers vulnerable to that CVE and printers with the vulnerability I have discovered.)
 
 Known Vulnerable Versions:
-• ZTC ZT411-203dpi ZPL printer (firmware version: 92.21.27Z, link-os version:6.8.1). 
+• ZTC ZT411-203dpi ZPL printer (firmware version: 92.21.04-27Z, link-os version:6.2-6.8.1). 
 • ZTC ZT610-300dpi ZPL printer (firmware version: 80.20.10Z, link-os version: 5.0.0). 
-• ZTC ZT410-203dpi ZPL printer (firmware version: 75.20.14z, link-os version: 5.0.0). 
+• ZTC ZT410-203dpi ZPL printer (firmware version: 75.20.14-15z, link-os version: 5.0.0-5.2.0). 
 • ZTC ZD411-203dpi ZPL printer (firmware version: 93.21.16z, link-os version: 6.7.0). 
+• ZTC ZD420-203dpi ZPL printer (firmware version: 84.29.18z, link-os version: 6.0.0). 
+
 
 (NB: There are likely others and I did not have access to other devices to test them. These versions are older and the vulnerabilities may be fixed in a newer version. It may be prudent to check rather than to assume this does not apply to your printer model/version.)
 
